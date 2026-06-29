@@ -50,3 +50,27 @@ Identidade do objeto       Comparar dois objetos decorados pode dar resultados i
 Conclusão
 O padrão Decorator evita a criação de subclasses para cada combinação possível, permitindo adicionar funcionalidades a objetos de forma flexível e reutilizável. É útil sempre que comportamentos precisam ser combinados livremente, como em pedidos, notificações ou middlewares.
 
+
+Eduardo -> Prototype
+
+Padrão de Projeto: Prototype (GoF)
+Classificação
+Tipo: Criacional
+
+Intenção: Permitir a criação de novos objetos a partir de um protótipo por clonagem.
+
+Problema (Sem o Padrão)
+Criação de múltiplos objetos similares gera duplicação de código e perda de desempenho.
+
+Solução (Com o Prototype)
+Criar um objeto base e cloná-lo, alterando apenas os atributos necessários.
+
+Pontos Fortes✅
+Desempenho melhorado, redução de código duplicado e maior flexibilidade.
+
+Pontos Fracos❌
+Dificuldade em implementar cópia profunda e risco de bugs.
+
+Quando Usar
+Quando a criação de objetos é custosa ou há muitas variações de estruturas semelhantes
+
