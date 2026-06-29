@@ -74,3 +74,62 @@ Dificuldade em implementar cópia profunda e risco de bugs.
 Quando Usar
 Quando a criação de objetos é custosa ou há muitas variações de estruturas semelhantes
 
+
+Gabriel -> Strategy
+
+Padrão de Projeto: Strategy (GoF)
+
+Classificação
+Tipo: Comportamental (Behavioral)
+
+Intenção
+Permitir que uma família de algoritmos seja encapsulada em classes separadas e tornados intercambiáveis. O algoritmo pode variar independentemente do cliente que o utiliza.
+
+Problema (Sem o Padrão)
+No código original do Camera CLI, o processamento de imagem era feito em uma única função `process_frame()` com uma cadeia de `if/elif` para cada filtro (flip, brilho/contraste, bordas, zoom, inversão). Adicionar um novo efeito exigia modificar a função, aumentando a complexidade e violando o Princípio Aberto/Fechado.
+
+Solução (Com o Strategy)
+Cada algoritmo de processamento foi isolado em sua própria classe implementando a interface `ImageFilter`:
+- `FlipFilter` - espelha a imagem
+- `BrightnessContrastFilter` - ajusta brilho e contraste
+- `EdgeDetectionFilter` - detecta bordas
+- `ZoomFilter` - aplica zoom digital
+- `InvertFilter` - inverte cores
+- `ImageProcessor` (Context) - gerencia a composição e execução dos filtros
+
+Estrutura
+<<interface>>
+   ImageFilter
++ process(frame) → frame
+      |
+      |--- FlipFilter                 (ConcreteStrategy)
+      |--- BrightnessContrastFilter   (ConcreteStrategy)
+      |--- EdgeDetectionFilter        (ConcreteStrategy)
+      |--- ZoomFilter                 (ConcreteStrategy)
+      |--- InvertFilter               (ConcreteStrategy)
+      |
+   ImageProcessor (Context)
++ set_filter(name, filter)
++ remove_filter(name)
++ process(frame)
+
+Arquivos
+- `strategy/compadrao.py` — Código refatorado COM o padrão Strategy
+- `strategy/sempadrao.py` — Código original SEM o padrão
+
+Pontos Fortes ✅
+   Ponto                                        Descrição
+Aberto/Fechado              Novos filtros podem ser adicionados sem modificar código existente
+Responsabilidade Única      Cada estratégia encapsula exatamente um algoritmo
+Intercambialidade           Algoritmos podem ser substituídos em tempo de execução
+Testabilidade               Cada estratégia pode ser testada independentemente
+
+Pontos Fracos ❌
+   Ponto                                        Descrição
+Número de classes           Aumento na quantidade de classes no projeto
+Overhead                    Clientes precisam conhecer as diferentes estratégias disponíveis
+Comunicação                 Estratégias podem precisar de muitos dados do contexto
+
+Conclusão
+O Strategy se mostrou ideal para o Camera CLI, onde múltiplos filtros de imagem precisam ser combinados dinamicamente. A refatoração tornou o código mais modular, extensível e testável. O trade-off do aumento de classes é amplamente compensado pela facilidade de manutenção e adição de novos filtros.
+
