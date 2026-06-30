@@ -133,6 +133,60 @@ Comunicação                 Estratégias podem precisar de muitos dados do con
 Conclusão
 O Strategy se mostrou ideal para o Camera CLI, onde múltiplos filtros de imagem precisam ser combinados dinamicamente. A refatoração tornou o código mais modular, extensível e testável. O trade-off do aumento de classes é amplamente compensado pela facilidade de manutenção e adição de novos filtros.
 
+Henrique -> Iterator
+
+Padrão de Projeto: Iterator (GoF)
+
+Classificação
+Tipo: Comportamental (Behavioral)
+
+Intenção
+Fornecer uma forma de acessar sequencialmente os elementos de uma coleção sem expor sua representação interna (array, lista encadeada, árvore, hash, etc.).
+
+Problema (Sem o Padrão)
+Na versão sem o padrão, o cliente precisa conhecer a estrutura interna de cada coleção para percorrê-la — uma lógica de percurso diferente para array e outra para lista encadeada.
+
+Solução (Com o Iterator)
+Cada coleção implementa o protocolo iterável (`[Symbol.iterator]`), retornando um iterador concreto que esconde os detalhes internos. O cliente percorre qualquer coleção da mesma forma (`for...of`).
+
+Estrutura
+<<interface>>
+   Iterator
++ next() → { value, done }
+      |
+      |--- ConcreteIteratorPlaylist   (percorre array)
+      |--- ConcreteIteratorHistorico  (percorre lista encadeada)
+
+<<interface>>
+   Iterable
++ [Symbol.iterator]() → Iterator
+      |
+      |--- Playlist   (ConcreteAggregate — array)
+      |--- Historico  (ConcreteAggregate — lista encadeada)
+
+Arquivos
+- `iterator-pattern-js/com-padrao/` — Código refatorado COM o padrão Iterator
+- `iterator-pattern-js/sem-padrao/` — Código original SEM o padrão
+
+Pontos Fortes ✅
+   Ponto                                        Descrição
+Encapsulamento preservado       Estrutura interna da coleção nunca é exposta ao cliente
+Interface uniforme              Qualquer coleção iterável pode ser percorrida da mesma forma
+Múltiplos percursos             É possível ter vários percursos independentes simultaneamente
+Facilidade de manutenção        Trocar a estrutura interna não impacta o código cliente
+Suporte nativo em JavaScript    Protocolo iterável já embutido na linguagem
+
+Pontos Fracos ❌
+   Ponto                                        Descrição
+Aumento de componentes          Cada coleção precisa implementar seu próprio iterator
+Overhead em coleções simples    Pode ser over-engineering para estruturas pequenas
+Iteradores podem ficar desatualizados  Modificação durante iteração pode causar inconsistência
+Acesso limitado                 Apenas percurso sequencial por padrão
+
+Conclusão
+O Iterator se mostrou eficaz para resolver o problema de percorrer coleções diferentes sem acoplar o código cliente aos detalhes de implementação. Em JavaScript, o padrão já é parte do núcleo da linguagem (protocolo iterável), o que facilita sua adoção e integração com for...of, spread operator, Array.from(), entre outros.
+
+
 Julia -> Builder
 
 Padrão de Projeto: Builder (GoF)
