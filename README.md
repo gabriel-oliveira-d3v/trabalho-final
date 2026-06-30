@@ -241,6 +241,63 @@ Mais código                   Exige a criação da classe Builder
 Maior complexidade            Pode ser desnecessário para objetos simples
 Mais arquivos                 Dependendo da implementação, aumenta a quantidade de classes
 
+# Chain of Responsibility
+By: David K
+## O que é?
+ 
+Padrão que passa uma requisição através de uma cadeia de handlers. Cada handler decide se processa ou passa para o próximo.
+ 
+## Cenário
+ 
+Sistema de aprovação de compras com 3 níveis:
+- **Gerente**: aprova até R$ 1.000
+- **Diretor**: aprova até R$ 10.000
+- **CEO**: aprova até R$ 100.000
+## Como funciona?
+ 
+```
+Requisição R$ 5.000
+    ↓
+Gerente: "Não consigo (limite 1000)"
+    ↓
+Diretor: "Consigo! (limite 10000)" → APROVADA
+```
+ 
+## Arquivos
+ 
+- `sem_padrao.py` - Solução com if/elif/else (centralizado)
+- `com_padrao.py` - Solução com padrão (distribuído)
+## Diferenças
+ 
+| Aspecto | Sem Padrão | Com Padrão |
+|---------|-----------|-----------|
+| Código | Centralizado | Distribuído |
+| Estender | Modificar função | Criar classe |
+| Testar | Acoplado | Independente |
+| SOLID | Não | Sim |
+ 
+## Vantagens do Padrão
+ 
+✅ Fácil adicionar novos handlers  
+✅ Cada handler independente  
+✅ Código mais organizado  
+✅ Testável  
+ 
+## Desvantagens
+ 
+❌ Mais classes  
+❌ Mais código inicial  
+❌ Debug mais complexo  
+ 
+## Executar
+ 
+```bash
+python sem_padrao.py
+python com_padrao.py
+```
+ 
+---
+
 Conclusão
 
 O padrão Builder facilita a criação de objetos complexos, tornando o código mais organizado, legível e de fácil manutenção. Sua utilização reduz erros na construção de objetos e oferece maior flexibilidade para adicionar novos atributos no futuro, sendo uma excelente alternativa quando construtores possuem muitos parâmetros.
