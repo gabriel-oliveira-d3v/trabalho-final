@@ -165,8 +165,8 @@ Estrutura
       |--- Historico  (ConcreteAggregate — lista encadeada)
 
 Arquivos
-- `iterator-pattern-js/com-padrao/` — Código refatorado COM o padrão Iterator
-- `iterator-pattern-js/sem-padrao/` — Código original SEM o padrão
+- `iterator/com-padrao/` — Código refatorado COM o padrão Iterator
+- `iterator/sem-padrao/` — Código original SEM o padrão
 
 Pontos Fortes ✅
    Ponto                                        Descrição
