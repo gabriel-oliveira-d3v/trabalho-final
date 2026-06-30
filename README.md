@@ -133,3 +133,60 @@ Comunicação                 Estratégias podem precisar de muitos dados do con
 Conclusão
 O Strategy se mostrou ideal para o Camera CLI, onde múltiplos filtros de imagem precisam ser combinados dinamicamente. A refatoração tornou o código mais modular, extensível e testável. O trade-off do aumento de classes é amplamente compensado pela facilidade de manutenção e adição de novos filtros.
 
+Julia -> Builder
+
+Padrão de Projeto: Builder (GoF)
+
+Classificação
+Tipo: Criacional
+
+Intenção
+Separar a construção de um objeto complexo da sua representação, permitindo criar diferentes versões do mesmo objeto utilizando o mesmo processo de construção.
+
+Problema (Sem o Padrão)
+Quando uma classe possui muitos atributos, seu construtor pode se tornar muito grande e difícil de utilizar. Além disso, é fácil confundir a ordem dos parâmetros, tornando o código menos legível e aumentando a chance de erros.
+
+Solução (Com o Builder)
+Foi criada uma classe interna `Builder`, responsável por construir o objeto passo a passo. Dessa forma, cada atributo é definido por métodos específicos e, ao final, o objeto é criado através do método `build()`.
+
+Estrutura
+
+```
+Computador
++ processador
++ memoria
++ armazenamento
++ placaVideo
++ rgb
+      |
+      |--- Builder
+            + processador()
+            + memoria()
+            + armazenamento()
+            + placaVideo()
+            + rgb()
+            + build()
+```
+
+Arquivos
+- `builder/combuilder` — Código refatorado COM o padrão Builder
+- `builder/sembuilder` — Código original SEM o padrão
+
+Pontos Fortes ✅
+
+   Ponto                                        Descrição
+Código mais legível           Cada atributo é definido de forma clara durante a construção
+Evita construtores grandes    Reduz a quantidade de parâmetros em um único construtor
+Facilidade de manutenção      Novos atributos podem ser adicionados sem afetar o código cliente
+Menor chance de erros         Evita confusão na ordem dos parâmetros
+
+Pontos Fracos ❌
+
+   Ponto                                        Descrição
+Mais código                   Exige a criação da classe Builder
+Maior complexidade            Pode ser desnecessário para objetos simples
+Mais arquivos                 Dependendo da implementação, aumenta a quantidade de classes
+
+Conclusão
+
+O padrão Builder facilita a criação de objetos complexos, tornando o código mais organizado, legível e de fácil manutenção. Sua utilização reduz erros na construção de objetos e oferece maior flexibilidade para adicionar novos atributos no futuro, sendo uma excelente alternativa quando construtores possuem muitos parâmetros.
